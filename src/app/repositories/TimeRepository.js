@@ -7,7 +7,24 @@ class TimeRepository {
         conexao.query(sql, (err, result) => {
             if (err) {
                 console.error("Erro:", err);
-                res.status(500).json({ erro: err });
+                return res.status(500).json({ erro: err });
+            }
+            res.status(200).json(result);
+        });
+    }
+
+    searchByName(req, res) {
+        const { nome } = req.query;
+
+        if (!nome) {
+            return res.status(400).json({ erro: "Parâmetro 'nome' é obrigatório." });
+        }
+
+        const sql = "SELECT * FROM db_brasileirao.campeonato WHERE nome LIKE ?";
+        conexao.query(sql, [`%${nome}%`], (err, result) => {
+            if (err) {
+                console.error("Erro:", err);
+                return res.status(500).json({ erro: err });
             }
             res.status(200).json(result);
         });

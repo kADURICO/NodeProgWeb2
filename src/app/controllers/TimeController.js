@@ -21,6 +21,10 @@ class TimeController {
     delete(req, res) {
         TimeRepository.delete(req, res);
     }
+
+    searchByName(req, res) {
+        TimeRepository.searchByName(req, res);
+    }
 }
 
 export default new TimeController();
